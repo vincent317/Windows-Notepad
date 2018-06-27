@@ -95,8 +95,21 @@ public class Mainboard extends JFrame {
 
 		xinjian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ta.setText(" ");
-				count = 0;
+				if(count==1)
+					ta.setText("");
+				else {
+					int res = JOptionPane.showConfirmDialog(null, "未保存是否继续", "未保存！", JOptionPane.YES_NO_OPTION);
+					if (res == JOptionPane.YES_OPTION)
+						ta.setText("");
+					else {
+						try {
+							save();
+						} catch (IOException ie) {
+							ie.printStackTrace();
+						}
+						ta.setText("");
+					}
+				}
 			}
 		});
 		baocun.addActionListener(new ActionListener() {
@@ -110,6 +123,7 @@ public class Mainboard extends JFrame {
 		});
 		dakai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ta.setText("");
 				op.setVisible(true);
 				String s;
 				File f1 = new File(op.getDirectory(), op.getFile());
